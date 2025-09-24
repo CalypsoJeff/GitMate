@@ -7,8 +7,11 @@ export interface IUser extends Document {
     bio: string;
     public_repos: number;
     public_gists: number;
-    followers: number;
-    following: number;
+    followers_count: number;
+    following_count: number;
+    followers_list?: string[];
+    following_list?: string[];
+    friends?: string[];
     created_at: Date;
     deleted?: boolean;
 }

@@ -8,8 +8,11 @@ export interface IUser extends Document {
   bio: string;
   public_repos: number;
   public_gists: number;
-  followers: number;
-  following: number;
+  followers_count: number; // keep counts
+  following_count: number;
+  followers_list?: string[]; // 👈 new: store usernames
+  following_list?: string[];
+  friends?: string[]; // 👈 new: store mutual friends
   created_at: Date;
   deleted?: boolean;
 }
@@ -23,8 +26,11 @@ const UserSchema: Schema = new Schema(
     bio: String,
     public_repos: Number,
     public_gists: Number,
-    followers: Number,
-    following: Number,
+    followers_count: Number,
+    following_count: Number,
+    followers_list: [String],
+    following_list: [String],
+    friends: [String],
     created_at: Date,
     deleted: { type: Boolean, default: false },
   },

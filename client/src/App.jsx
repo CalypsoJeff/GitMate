@@ -6,6 +6,7 @@ import UserInfo from "./components/UserInfo";
 import RepoList from "./components/RepoList";
 import RepoDetails from "./components/RepoDetails";
 import FollowersList from "./components/FollowersList";
+import AllUsersList from "./components/AllUsersList"; // ✅ Import
 import "./App.css";
 
 function App() {
@@ -14,58 +15,66 @@ function App() {
   const [followers, setFollowers] = useState([]);
   const [selectedRepo, setSelectedRepo] = useState(null);
   const [currentView, setCurrentView] = useState("search");
-  const [cache, setCache] = useState({});
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  // ✅ Fetch user and repos
   const fetchUser = async (username) => {
-    if (cache[username]?.user) {
-      setUser(cache[username].user);
-      setRepos(cache[username].repos);
-      setCurrentView("repos");
-      return;
-    }
     try {
-      const userRes = await axios.get(
-        `https://api.github.com/users/${username}`
-      );
-      const repoRes = await axios.get(
-        `https://api.github.com/users/${username}/repos`
-      );
-      const newData = { user: userRes.data, repos: repoRes.data };
-      setCache((prev) => ({ ...prev, [username]: newData }));
+      const userRes = await axios.post(`${API_URL}/api/users/${username}`);
       setUser(userRes.data);
+
+      const repoRes = await axios.get(`${API_URL}/api/users/${username}/repos`);
       setRepos(repoRes.data);
+
       setCurrentView("repos");
     } catch (err) {
-      alert("User not found");
+      alert("User not found in DB or GitHub");
     }
   };
 
-  const fetchFollowers = async (username) => {
-    if (cache[username]?.followers) {
-      setFollowers(cache[username].followers);
-      setCurrentView("followers");
-      return;
+  // ✅ Delete user (soft delete)
+  const deleteUser = async (username) => {
+    try {
+      await axios.delete(`${API_URL}/api/users/${username}`);
+      alert(`${username} has been soft deleted`);
+      setUser(null);
+      setRepos([]);
+      setFollowers([]);
+      setSelectedRepo(null);
+      setCurrentView("search");
+    } catch (err) {
+      alert("Error deleting user");
     }
-    const res = await axios.get(
-      `https://api.github.com/users/${username}/followers`
-    );
-    setFollowers(res.data);
-    setCache((prev) => ({
-      ...prev,
-      [username]: { ...(prev[username] || {}), followers: res.data },
-    }));
-    setCurrentView("followers");
+  };
+
+  // ✅ Fetch followers
+  const fetchFollowers = async (username) => {
+    try {
+      const res = await axios.get(`${API_URL}/api/users/${username}/followers`);
+      setFollowers(res.data);
+      setCurrentView("followers");
+    } catch (err) {
+      alert("Error fetching followers");
+    }
   };
 
   return (
     <div className="app-container">
-      {currentView === "search" && <SearchBox onSearch={fetchUser} />}
+      {currentView === "search" && (
+        <>
+          <SearchBox onSearch={fetchUser} />
+          <button onClick={() => setCurrentView("allUsers")}>
+            📋 View All Users
+          </button>
+        </>
+      )}
 
       {currentView === "repos" && (
         <>
           <UserInfo
             user={user}
             onFollowersClick={() => fetchFollowers(user.login)}
+            onDelete={() => deleteUser(user.login)} 
           />
           <RepoList
             repos={repos}
@@ -91,10 +100,17 @@ function App() {
         <>
           <FollowersList
             followers={followers}
-            username={user.login} // 👈 pass the current user
+            username={user.login}
             onSelect={(f) => fetchUser(f.login)}
           />
           <button onClick={() => setCurrentView("repos")}>🔙 Back</button>
+        </>
+      )}
+
+      {currentView === "allUsers" && (
+        <>
+          <AllUsersList API_URL={API_URL} onSelect={fetchUser} />
+          <button onClick={() => setCurrentView("search")}>🔙 Back</button>
         </>
       )}
     </div>
