@@ -1,0 +1,378 @@
+/* General reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  color: #333;
+}
+
+/* Container */
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Input & Button */
+input[type="text"] {
+  padding: 8px;
+  width: 250px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* User Info */
+.user-info {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info img {
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.user-info p {
+  margin: 4px 0;
+}
+
+/* Repo List Container */
+.repo-list-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px; /* adjust based on how tall you want the section */
+  justify-content: space-between;
+}
+
+/* Repo List */
+.repo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.repo-list li {
+  margin: 8px 0;
+}
+
+.repo-list button {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.repo-list button:hover {
+  background: #007bff;
+  color: white;
+}
+
+/* Repo Grid */
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  flex: 1; /* push pagination to bottom */
+}
+
+/* Repo Card */
+.repo-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.repo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Repo Icon */
+.repo-icon img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* Repo Content */
+.repo-content h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #0366d6;
+}
+
+.repo-content p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  padding: 15px 0;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 0.9rem;
+}
+
+/* Repo Details Layout */
+.repo-details {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Left panel */
+.repo-left {
+  flex: 0 0 250px;
+  text-align: center;
+}
+
+.repo-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.verified {
+  font-size: 0.85rem;
+  margin: 15px 0;
+  color: #444;
+}
+
+.categories {
+  margin-top: 20px;
+}
+
+.categories h4 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 4px 8px;
+  background: #f1f1f1;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #0366d6;
+}
+
+/* Right panel */
+.repo-right {
+  flex: 1;
+}
+
+.app-label {
+  font-size: 0.85rem;
+  color: gray;
+}
+
+.repo-right h2 {
+  margin: 5px 0 15px;
+  font-size: 1.6rem;
+}
+
+.github-link {
+  display: inline-block;
+  margin-bottom: 15px;
+  text-decoration: none;
+  background: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.github-link:hover {
+  background: #218838;
+}
+
+.repo-description {
+  margin: 15px 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Followers Section */
+.followers-section {
+  margin-top: 20px;
+}
+
+.followers-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.followers-section .highlight {
+  color: #007bff;
+}
+
+/* Followers Grid */
+.followers-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+/* Follower Card */
+.follower-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 200px; /* fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.follower-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.follower-card img {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+}
+
+.follower-card h4 {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.follower-card button {
+  margin-top: 8px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.follower-card button:hover {
+  background: #0056b3;
+}
+/* Search Page */
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh; /* center vertically */
+  text-align: center;
+}
+
+.search-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0366d6;
+}
+
+.search-caption {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-box input[type="text"] {
+  padding: 10px;
+  width: 280px;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px; /* rounded only on left */
+  outline: none;
+}
+
+.search-box button {
+  padding: 10px 15px;
+  border-radius: 0 6px 6px 0; /* rounded only on right */
+  font-size: 1rem;
+}
