@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import axios from "axios";
-import User from "../models/User";
+import User from "../models/User.js";
 
 // 1. Save GitHub User
 export const saveGitHubUser = async (req: Request, res: Response) => {
